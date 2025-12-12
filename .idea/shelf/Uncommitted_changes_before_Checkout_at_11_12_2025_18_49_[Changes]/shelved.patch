@@ -1,0 +1,488 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.ProyectoFinal\">\r\n        <activity\r\n            android:name=\".Inicio\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 928e9e0142dc38e3921b15ce4c88a32a04361af2)
++++ b/app/src/main/AndroidManifest.xml	(date 1765494652454)
+@@ -11,15 +11,27 @@
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/Theme.ProyectoFinal">
++
+         <activity
+             android:name=".Inicio"
++            android:exported="false" />
++
++        <activity
++            android:name=".RegisterActivity"
++            android:exported="false" />
++
++        <!-- 🔥 ESTA ES AHORA LA PANTALLA INICIAL -->
++        <activity
++            android:name=".LoginActivity"
+             android:exported="true">
++
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+-
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
++
+         </activity>
++
+     </application>
+ 
+-</manifest>
+\ No newline at end of file
++</manifest>
+Index: app/src/main/res/drawable/button_rounded.xml
+===================================================================
+diff --git a/app/src/main/res/drawable/button_rounded.xml b/app/src/main/res/drawable/button_rounded.xml
+new file mode 100644
+--- /dev/null	(date 1765494547168)
++++ b/app/src/main/res/drawable/button_rounded.xml	(date 1765494547168)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
++    <solid android:color="#3F51B5"/>
++    <corners android:radius="20dp"/>
++    <padding
++        android:left="16dp"
++        android:top="10dp"
++        android:right="16dp"
++        android:bottom="10dp"/>
++</shape>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_21\" default=\"true\" project-jdk-name=\"jbr-21\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 928e9e0142dc38e3921b15ce4c88a32a04361af2)
++++ b/.idea/misc.xml	(date 1765493486095)
+@@ -1,4 +1,3 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK">
+Index: app/src/main/res/layout/activity_register.xml
+===================================================================
+diff --git a/app/src/main/res/layout/activity_register.xml b/app/src/main/res/layout/activity_register.xml
+new file mode 100644
+--- /dev/null	(date 1765495706226)
++++ b/app/src/main/res/layout/activity_register.xml	(date 1765495706226)
+@@ -0,0 +1,105 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="@color/white">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="vertical"
++        android:padding="24dp"
++        android:gravity="center">
++
++        <!-- TÍTULO PRINCIPAL -->
++        <TextView
++            android:text="SucursalMania"
++            android:textSize="26sp"
++            android:textStyle="bold"
++            android:textColor="#000000"
++            android:layout_marginBottom="10dp"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content" />
++
++        <!-- SUBTÍTULO -->
++        <TextView
++            android:text="Registro"
++            android:textSize="20sp"
++            android:textStyle="bold"
++            android:textColor="#000000"
++            android:layout_marginBottom="20dp"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content" />
++
++        <!-- LABEL EMAIL -->
++        <TextView
++            android:text="Correo electrónico"
++            android:textColor="#000000"
++            android:textSize="14sp"
++            android:layout_marginBottom="4dp"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content" />
++
++        <EditText
++            android:id="@+id/etEmail"
++            android:hint="Escribe tu correo"
++            android:inputType="textEmailAddress"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content" />
++
++        <!-- LABEL CONTRASEÑA -->
++        <TextView
++            android:text="Contraseña"
++            android:textColor="#000000"
++            android:textSize="14sp"
++            android:layout_marginTop="12dp"
++            android:layout_marginBottom="4dp"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content" />
++
++        <EditText
++            android:id="@+id/etPassword"
++            android:hint="Escribe tu contraseña"
++            android:inputType="textPassword"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content" />
++
++        <!-- LABEL CONFIRMAR CONTRASEÑA -->
++        <TextView
++            android:text="Confirmar Contraseña"
++            android:textColor="#000000"
++            android:textSize="14sp"
++            android:layout_marginTop="12dp"
++            android:layout_marginBottom="4dp"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content" />
++
++        <EditText
++            android:id="@+id/etConfirmPassword"
++            android:hint="Repite la contraseña"
++            android:inputType="textPassword"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content" />
++
++        <!-- BOTÓN REGISTRARSE AZUL -->
++        <Button
++            android:id="@+id/btnRegister"
++            android:text="Registrarse"
++            android:backgroundTint="#2196F3"
++            android:textColor="@color/white"
++            android:layout_marginTop="22dp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content" />
++
++        <!-- LINK A LOGIN -->
++        <TextView
++            android:id="@+id/txtLogin"
++            android:text="¿Ya tienes cuenta? Inicia sesión"
++            android:textColor="#0000FF"
++            android:layout_marginTop="18dp"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content" />
++
++    </LinearLayout>
++
++</ScrollView>
+Index: app/src/main/java/com/example/proyectofinal/LoginActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/example/proyectofinal/LoginActivity.java b/app/src/main/java/com/example/proyectofinal/LoginActivity.java
+new file mode 100644
+--- /dev/null	(date 1765493997262)
++++ b/app/src/main/java/com/example/proyectofinal/LoginActivity.java	(date 1765493997262)
+@@ -0,0 +1,74 @@
++package com.example.proyectofinal;
++
++
++
++import android.content.Intent;
++import android.database.Cursor;
++import android.database.sqlite.SQLiteDatabase;
++import android.os.Bundle;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.TextView;
++import android.widget.Toast;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++public class LoginActivity extends AppCompatActivity {
++
++    EditText etEmail, etPassword;
++    Button btnLogin;
++    TextView txtRegister;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_login);
++
++        etEmail = findViewById(R.id.etEmail);
++        etPassword = findViewById(R.id.etPassword);
++        btnLogin = findViewById(R.id.btnLogin);
++        txtRegister = findViewById(R.id.txtRegister);
++
++        btnLogin.setOnClickListener(v -> login());
++
++        txtRegister.setOnClickListener(v ->
++                startActivity(new Intent(LoginActivity.this, RegisterActivity.class))
++        );
++    }
++
++    private void login() {
++        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this);
++        SQLiteDatabase db = admin.getWritableDatabase();
++
++        String email = etEmail.getText().toString().trim();
++        String password = etPassword.getText().toString().trim();
++
++        if (email.isEmpty() || password.isEmpty()) {
++            Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
++            return;
++        }
++
++        Cursor cursor = db.rawQuery(
++                "SELECT * FROM usuarios WHERE email=?",
++                new String[]{email}
++        );
++
++        if (cursor.moveToFirst()) {
++            String passwordBD = cursor.getString(2);
++
++            if (password.equals(passwordBD)) {
++                Toast.makeText(this, "Login exitoso", Toast.LENGTH_SHORT).show();
++                Intent intent = new Intent(LoginActivity.this, Inicio.class);
++                startActivity(intent);
++                finish();
++            } else {
++                Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
++            }
++        } else {
++            Toast.makeText(this, "Usuario no registrado", Toast.LENGTH_SHORT).show();
++        }
++
++        cursor.close();
++        db.close();
++    }
++}
+Index: app/src/main/java/com/example/proyectofinal/AdminSQLiteOpenHelper.java
+===================================================================
+diff --git a/app/src/main/java/com/example/proyectofinal/AdminSQLiteOpenHelper.java b/app/src/main/java/com/example/proyectofinal/AdminSQLiteOpenHelper.java
+new file mode 100644
+--- /dev/null	(date 1765493887964)
++++ b/app/src/main/java/com/example/proyectofinal/AdminSQLiteOpenHelper.java	(date 1765493887964)
+@@ -0,0 +1,34 @@
++package com.example.proyectofinal;
++
++
++
++
++import android.content.Context;
++import android.database.sqlite.SQLiteDatabase;
++import android.database.sqlite.SQLiteOpenHelper;
++
++public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
++
++    public static final String DB_NAME = "usuariosDB";
++    public static final int DB_VERSION = 1;
++
++    public AdminSQLiteOpenHelper(Context context) {
++        super(context, DB_NAME, null, DB_VERSION);
++    }
++
++    @Override
++    public void onCreate(SQLiteDatabase db) {
++        db.execSQL(
++                "CREATE TABLE usuarios (" +
++                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
++                        "email TEXT UNIQUE," +
++                        "password TEXT)"
++        );
++    }
++
++    @Override
++    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
++        db.execSQL("DROP TABLE IF EXISTS usuarios");
++        onCreate(db);
++    }
++}
+Index: app/src/main/java/com/example/proyectofinal/RegisterActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/example/proyectofinal/RegisterActivity.java b/app/src/main/java/com/example/proyectofinal/RegisterActivity.java
+new file mode 100644
+--- /dev/null	(date 1765494033606)
++++ b/app/src/main/java/com/example/proyectofinal/RegisterActivity.java	(date 1765494033606)
+@@ -0,0 +1,75 @@
++package com.example.proyectofinal;
++
++import android.content.ContentValues;
++import android.database.Cursor;
++import android.database.sqlite.SQLiteDatabase;
++import android.os.Bundle;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.TextView;
++import android.widget.Toast;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++public class RegisterActivity extends AppCompatActivity {
++
++    EditText etEmail, etPassword, etConfirmPassword;
++    Button btnRegister;
++    TextView txtLogin;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_register);
++
++        etEmail = findViewById(R.id.etEmail);
++        etPassword = findViewById(R.id.etPassword);
++        etConfirmPassword = findViewById(R.id.etConfirmPassword);
++        btnRegister = findViewById(R.id.btnRegister);
++        txtLogin = findViewById(R.id.txtLogin);
++
++        btnRegister.setOnClickListener(v -> registrarUsuario());
++
++        txtLogin.setOnClickListener(v -> finish());
++    }
++
++    private void registrarUsuario() {
++        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this);
++        SQLiteDatabase db = admin.getWritableDatabase();
++
++        String email = etEmail.getText().toString().trim();
++        String password = etPassword.getText().toString().trim();
++        String confirmPassword = etConfirmPassword.getText().toString().trim();
++
++        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
++            Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show();
++            return;
++        }
++
++        if (!password.equals(confirmPassword)) {
++            Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
++            return;
++        }
++
++        Cursor cursor = db.rawQuery(
++                "SELECT * FROM usuarios WHERE email=?",
++                new String[]{email}
++        );
++
++        if (cursor.moveToFirst()) {
++            Toast.makeText(this, "Usuario ya registrado", Toast.LENGTH_SHORT).show();
++        } else {
++            ContentValues values = new ContentValues();
++            values.put("email", email);
++            values.put("password", password);
++            db.insert("usuarios", null, values);
++
++            Toast.makeText(this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
++            finish();
++        }
++
++        cursor.close();
++        db.close();
++    }
++}
++
+Index: app/src/main/res/layout/activity_login.xml
+===================================================================
+diff --git a/app/src/main/res/layout/activity_login.xml b/app/src/main/res/layout/activity_login.xml
+new file mode 100644
+--- /dev/null	(date 1765495530688)
++++ b/app/src/main/res/layout/activity_login.xml	(date 1765495530688)
+@@ -0,0 +1,77 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    android:padding="24dp"
++    android:gravity="center">
++
++    <!-- TÍTULO PRINCIPAL -->
++    <TextView
++        android:text="SucursalMania"
++        android:textStyle="bold"
++        android:textSize="26sp"
++        android:layout_marginBottom="30dp"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"/>
++
++    <!-- TÍTULO SECUNDARIO LOGIN -->
++    <TextView
++        android:text="Login"
++        android:textStyle="bold"
++        android:textSize="22sp"
++        android:layout_marginBottom="20dp"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"/>
++
++    <!-- TEXTO ARRIBA DEL CORREO -->
++    <TextView
++        android:text="Nombre / Correo"
++        android:textSize="14sp"
++        android:layout_marginBottom="4dp"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"/>
++
++    <EditText
++        android:id="@+id/etEmail"
++        android:hint="Correo"
++        android:inputType="textEmailAddress"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"/>
++
++    <!-- TEXTO ARRIBA DE CONTRASEÑA -->
++    <TextView
++        android:text="Contraseña"
++        android:textSize="14sp"
++        android:layout_marginTop="12dp"
++        android:layout_marginBottom="4dp"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"/>
++
++    <EditText
++        android:id="@+id/etPassword"
++        android:hint="Contraseña"
++        android:inputType="textPassword"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"/>
++
++    <!-- BOTÓN AZUL -->
++    <Button
++        android:id="@+id/btnLogin"
++        android:text="Iniciar Sesión"
++        android:backgroundTint="#0066FF"
++        android:textColor="@android:color/white"
++        android:layout_marginTop="20dp"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"/>
++
++    <TextView
++        android:id="@+id/txtRegister"
++        android:text="No tienes cuenta? Regístrate"
++        android:textColor="#0000FF"
++        android:layout_marginTop="16dp"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"/>
++
++</LinearLayout>
++
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"CHOOSE_PER_TEST\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"#GRADLE_LOCAL_JAVA_HOME\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 928e9e0142dc38e3921b15ce4c88a32a04361af2)
++++ b/.idea/gradle.xml	(date 1765493552558)
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>

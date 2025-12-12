@@ -87,20 +87,14 @@ public class Inicio extends AppCompatActivity {
 
     // ===== MÉTODOS PARA ABRIR OTRAS PANTALLAS =====
 
-    /**
-     * Método para abrir la pantalla del mapa con la ubicación de la tienda
-     * @param nombreTienda Nombre de la tienda seleccionada
-     */
+    
     private void abrirMapa(String nombreTienda) {
         Intent intent = new Intent(this, mapa.class);
         intent.putExtra("tienda", nombreTienda);
         startActivity(intent);
     }
 
-    /**
-     * Método para abrir el catálogo de productos de la tienda
-     * @param nombreTienda Nombre de la tienda seleccionada
-     */
+
     private void abrirCatalogo(String nombreTienda) {
         Intent intent = new Intent(this, activity_producto.class);
         intent.putExtra("tienda", nombreTienda);

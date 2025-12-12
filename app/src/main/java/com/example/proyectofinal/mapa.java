@@ -234,18 +234,18 @@ public class mapa extends AppCompatActivity {
         }
     }
 
-    /**
-     * Obtiene las coordenadas según la tienda seleccionada.
-     * Si es D1, por ahora dejamos la lógica en calcularD1MasCercano() que depende de ubicacionUsuario.
-     */
+
+     // Obtiene las coordenadas según la tienda seleccionada.
+     //Si es D1, por ahora dejamos la lógica en calcularD1MasCercano() que depende de ubicacionUsuario.
+
     private void obtenerCoordenadasTienda(String tienda) {
         if (tienda.equalsIgnoreCase("D1")) {
             // Deja que calcularD1MasCercano() decida basándose en ubicacionUsuario
             // Si ubicacionUsuario es null al invocar ese método, se usará la ubicación 1 por defecto
             calcularD1MasCercano();
         } else if (tienda.equalsIgnoreCase("Éxito")) {
-            latitud = 5.457753763731659;
-            longitud = -74.66318108294723;
+            latitud = 5.460074019746846;
+            longitud = -74.66575277030633;
         } else {
             // Default
             latitud = 5.4772622519861915;
@@ -258,21 +258,29 @@ public class mapa extends AppCompatActivity {
      * Si no hay ubicación de usuario, usa la ubicación 1 por defecto.
      */
     private void calcularD1MasCercano() {
+
+        // Coordenadas de tiendas D1
         double lat1 = 5.4772622519861915, lon1 = -74.67364780582078;  // D1 - 1
         double lat2 = 5.461711832137912, lon2 = -74.66592339968278;   // D1 - 2
         double lat3 = 5.481916043961331, lon3 = -74.67315659459213;   // D1 - 3
 
+        // Si NO tenemos ubicación del usuario aún, usar la primera tienda por defecto
         if (ubicacionUsuario == null) {
-            // No tenemos ubicación del usuario todavía -> usar D1-1 por defecto
             latitud = lat1;
             longitud = lon1;
             return;
         }
 
-        float d1 = calcularDistancia(ubicacionUsuario.getLatitude(), ubicacionUsuario.getLongitude(), lat1, lon1);
-        float d2 = calcularDistancia(ubicacionUsuario.getLatitude(), ubicacionUsuario.getLongitude(), lat2, lon2);
-        float d3 = calcularDistancia(ubicacionUsuario.getLatitude(), ubicacionUsuario.getLongitude(), lat3, lon3);
+        // Obtener latitud/longitud del usuario
+        double userLat = ubicacionUsuario.getLatitude();
+        double userLon = ubicacionUsuario.getLongitude();
 
+        // Calcular distancias
+        float d1 = calcularDistancia(userLat, userLon, lat1, lon1);
+        float d2 = calcularDistancia(userLat, userLon, lat2, lon2);
+        float d3 = calcularDistancia(userLat, userLon, lat3, lon3);
+
+        // Seleccionar la tienda más cercana
         if (d2 < d1 && d2 < d3) {
             latitud = lat2;
             longitud = lon2;
@@ -285,14 +293,16 @@ public class mapa extends AppCompatActivity {
         }
     }
 
+
     /**
      * Calcula la distancia entre dos puntos geográficos en metros
      */
-    private float calcularDistancia(double lat1, double lon1, double lat2, double lon2) {
+    private float calcularDistancia(double latA, double lonA, double latB, double lonB) {
         float[] results = new float[1];
-        android.location.Location.distanceBetween(lat1, lon1, lat2, lon2, results);
+        Location.distanceBetween(latA, lonA, latB, lonB, results);
         return results[0];
     }
+
 
     /**
      * Configura el mapa de OpenStreetMap y agrega el marcador de la tienda.
@@ -372,14 +382,21 @@ public class mapa extends AppCompatActivity {
      * Abre la ubicación en una aplicación de mapas externa (Google Maps, Waze, etc.)
      */
     private void abrirEnMapasExterna() {
-        String uri = "geo:" + latitud + "," + longitud + "?q=" + latitud + "," + longitud + "(" + nombreTienda + ")";
+        String uri = "https://www.google.com/maps/search/?api=1&query="
+                + latitud + "," + longitud;
+
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps"); // fuerza abrir Google Maps
+
+        // Si Google Maps NO está instalado, abre cualquier navegador o app compatible
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         } else {
-            Toast.makeText(this, "No hay ninguna aplicación de mapas instalada", Toast.LENGTH_SHORT).show();
+            intent.setPackage(null); // quita restricción
+            startActivity(intent);
         }
     }
+
 
     @Override
     public void onResume() {

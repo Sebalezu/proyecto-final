@@ -8,40 +8,46 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+
+import com.example.proyectofinal.R;
+import com.example.proyectofinal.Product;
+import com.example.proyectofinal.CarritoManager;
 
 import java.util.List;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHolder> {
 
-    Context context;
-    List<Producto> lista;
+    private Context context;
+    private List<Product> lista;
 
-    public ProductoAdapter(Context ctx, List<Producto> data) {
-        this.context = ctx;
-        this.lista = data;
+    public ProductoAdapter(Context context, List<Product> lista) {
+        this.context = context;
+        this.lista = lista;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View vista = LayoutInflater.from(context).inflate(R.layout.item_producto, parent, false);
+        return new ViewHolder(vista);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_producto, parent, false);
-        return new ViewHolder(v);
-    }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Product p = lista.get(position);
 
-    @Override
-    public void onBindViewHolder(ViewHolder h, int pos) {
-        Producto p = lista.get(pos);
+        holder.txtNombre.setText(p.getTitle());
+        holder.txtPrecio.setText("€ " + (p.getPrice() / 100.0));
 
-        h.tvNombre.setText(p.nombre);
-        h.tvPrecio.setText("€ " + (p.precio / 100.0));
+        Picasso.get().load(p.getImageUrl()).into(holder.imgProducto);
 
-        Picasso.get()
-                .load(p.imagen)
-                .into(h.img);
-
-        h.btnAgregar.setOnClickListener(v -> GlobalVars.agregarAlCarrito(p));
+        holder.btnAgregarCarrito.setOnClickListener(v -> {
+            CarritoManager.agregarProducto(p);
+        });
     }
 
     @Override
@@ -49,19 +55,20 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
         return lista.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView img;
-        TextView tvNombre, tvPrecio, tvTipo;
-        Button btnAgregar;
+        ImageView imgProducto;
+        TextView txtNombre, txtPrecio;
+        Button btnAgregarCarrito;
 
-        ViewHolder(View v) {
-            super(v);
-            img = v.findViewById(R.id.img5Producto);
-            tvNombre = v.findViewById(R.id.tv5Nombre);
-            tvPrecio = v.findViewById(R.id.tv5Precio);
-            tvTipo = v.findViewById(R.id.tv5Tipo);
-            btnAgregar = v.findViewById(R.id.btn5Agregar);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            imgProducto = itemView.findViewById(R.id.imgProducto);
+            txtNombre = itemView.findViewById(R.id.txtNombreProducto);
+            txtPrecio = itemView.findViewById(R.id.txtPrecioProducto);
+            btnAgregarCarrito = itemView.findViewById(R.id.btnAgregarCarrito);
         }
     }
 }
+

@@ -4,56 +4,93 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import com.example.proyectofinal.R;
+import com.example.proyectofinal.CartItem;
+import com.example.proyectofinal.CarritoAdapter;
+
+
+import java.util.ArrayList;
 
 public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHolder> {
 
-    Context ctx;
-    List<Producto> data;
+    private Context context;
+    private ArrayList<CartItem> lista;
+    private Runnable updateTotalCallback;
 
-    public CarritoAdapter(Context c, List<Producto> d) {
-        ctx = c;
-        data = d;
+    public CarritoAdapter(Context context, ArrayList<CartItem> lista, Runnable updateTotalCallback) {
+        this.context = context;
+        this.lista = lista;
+        this.updateTotalCallback = updateTotalCallback;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(ctx).inflate(R.layout.item_carrito, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.item_carrito, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder h, int pos) {
+    public void onBindViewHolder(@NonNull ViewHolder h, int position) {
 
-        Producto p = data.get(pos);
+        CartItem item = lista.get(position);
 
-        h.tvNombre.setText(p.nombre);
-        h.tvPrecio.setText("€ " + (p.precio / 100.0));
-        h.tvCantidad.setText(String.valueOf(p.cantidad));
+        h.txtNombre.setText(item.getProduct().getTitle());
+        h.txtPrecio.setText("€ " + (item.getProduct().getPrice() / 100.0));
+        h.txtCantidad.setText(String.valueOf(item.getQuantity()));
 
-        Picasso.get().load(p.imagen).into(h.img);
+        Picasso.get().load(item.getProduct().getImageUrl()).into(h.img);
+
+        h.btnMas.setOnClickListener(v -> {
+            item.setQuantity(item.getQuantity() + 1);
+            notifyItemChanged(position);
+            updateTotalCallback.run();
+        });
+
+        h.btnMenos.setOnClickListener(v -> {
+            int nuevaCantidad = item.getQuantity() - 1;
+
+            if (nuevaCantidad <= 0) {
+                CarritoManager.eliminarProducto(item.getProduct());
+                notifyItemRemoved(position);
+            } else {
+                item.setQuantity(nuevaCantidad);
+                notifyItemChanged(position);
+            }
+
+            updateTotalCallback.run();
+        });
     }
 
     @Override
-    public int getItemCount() { return data.size(); }
+    public int getItemCount() {
+        return lista.size();
+    }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img;
-        TextView tvNombre, tvPrecio, tvCantidad;
+        TextView txtNombre, txtPrecio, txtCantidad;
+        Button btnMas, btnMenos;
 
-        public ViewHolder(View v) {
+        public ViewHolder(@NonNull View v) {
             super(v);
-            img = v.findViewById(R.id.img6CarItem);
-            tvNombre = v.findViewById(R.id.tv6CarNombre);
-            tvPrecio = v.findViewById(R.id.tv6CarPrecio);
-            tvCantidad = v.findViewById(R.id.tv6Cantidad);
+
+            img = v.findViewById(R.id.imgCarrito);
+            txtNombre = v.findViewById(R.id.txtNombreCarrito);
+            txtPrecio = v.findViewById(R.id.txtPrecioCarrito);
+            txtCantidad = v.findViewById(R.id.txtCantidad);
+            btnMas = v.findViewById(R.id.btnMas);
+            btnMenos = v.findViewById(R.id.btnMenos);
         }
     }
 }

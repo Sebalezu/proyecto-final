@@ -1,80 +1,124 @@
 package com.example.proyectofinal;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.content.Intent;
-
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class activity_producto extends AppCompatActivity {
 
-    RecyclerView rv;
-    ProductoAdapter adapter;
-    ArrayList<Producto> lista = new ArrayList<>();
+    private RecyclerView rvProductos;
+    private EditText txtBuscarPorNombre;      // ← EditText en vez de Spinner
+    private Button btnBuscar, btnCarrito;
 
-    String URL = "https://api.apify.com/v2/datasets/y4wGLhpyhg3UCHN6Q/items?token=apify_api_AOu38iajyUbMHSuyBIQRu6fiywHY042pb8wG";
+    private ArrayList<Product> lista = new ArrayList<>();
+    private ProductoAdapter adapter;
+    private RequestQueue queue;
+
+    private static final String URL_API =
+            "https://api.apify.com/v2/datasets/y4wGLhpyhg3UCHN6Q/items?token=apify_api_AOu38iajyUbMHSuyBIQRu6fiywHY042pb8wG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto);
 
-        rv = findViewById(R.id.rvProductos);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        rvProductos = findViewById(R.id.rvProductos);
+        txtBuscarPorNombre = findViewById(R.id.txt5Buscarpornombre);   // ← EditText
+        btnBuscar = findViewById(R.id.btnBuscarProducto);
+        btnCarrito = findViewById(R.id.btnCarrito);
 
-        Button btnCarrito = findViewById(R.id.btnCarrito);
-        btnCarrito.setOnClickListener(v ->
-                startActivity(new Intent(this, activity_carrito.class)));
+        rvProductos.setLayoutManager(new LinearLayoutManager(this));
 
-        cargarDatos();
+        queue = Volley.newRequestQueue(this);
+
+        cargarProductos();
+
+        // ABRIR CARRITO
+        btnCarrito.setOnClickListener(v -> {
+            Intent intent = new Intent(activity_producto.this, activity_carrito.class);
+            startActivity(intent);
+        });
+
+        // 🔍 BOTÓN BUSCAR
+        btnBuscar.setOnClickListener(v -> filtrarPorNombre());
     }
 
-    private void cargarDatos() {
 
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, URL, null,
-                response -> {
-                    lista.clear();
-                    parsearProductos(response);
-                },
+    private void cargarProductos() {
+
+        JsonArrayRequest req = new JsonArrayRequest(
+                Request.Method.GET,
+                URL_API,
+                null,
+                response -> procesarRespuesta(response),
                 error -> {}
         );
 
-        Volley.newRequestQueue(this).add(req);
+        queue.add(req);
     }
 
-    private void parsearProductos(JSONArray arr) {
+
+    private void procesarRespuesta(JSONArray response) {
+
+        lista.clear();
+
         try {
-            for (int i = 0; i < arr.length(); i++) {
+            for (int i = 0; i < response.length(); i++) {
 
-                JSONObject o = arr.getJSONObject(i);
+                var obj = response.getJSONObject(i);
 
-                String id = o.getString("id");
-                String nombre = o.getString("title");
-
-                String img = o.getString("imageUrl");
-
-                double precio = o.getJSONObject("prices")
+                String id = obj.getString("id");
+                String title = obj.getString("title");
+                int price = obj.getJSONObject("prices")
                         .getJSONObject("price")
-                        .getDouble("amount");
+                        .getInt("amount");
+                String imagen = obj.getString("imageUrl");
 
-                lista.add(new Producto(id, nombre, img, precio));
+                Product p = new Product(id, title, price, imagen);
+                lista.add(p);
             }
 
             adapter = new ProductoAdapter(this, lista);
-            rv.setAdapter(adapter);
+            rvProductos.setAdapter(adapter);
 
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // 🔍 FILTRAR POR NOMBRE USANDO EDITTEXT — 100% corregido
+    private void filtrarPorNombre() {
+
+        String texto = txtBuscarPorNombre.getText().toString().trim().toLowerCase();
+
+        ArrayList<Product> filtrados = new ArrayList<>();
+
+        for (Product p : lista) {
+            if (p != null && p.getTitle() != null) {
+                if (p.getTitle().toLowerCase().contains(texto)) {
+                    filtrados.add(p);
+                }
+            }
+        }
+
+        adapter = new ProductoAdapter(this, filtrados);
+        rvProductos.setAdapter(adapter);
     }
 }
+

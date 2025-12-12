@@ -32,18 +32,19 @@
         app:layout_constraintTop_toBottomOf="@+id/btnCarrito">
 
 
-        <Spinner
-            android:id="@+id/spinnerTipos"
-            android:layout_width="0dp"
+        <EditText
+            android:id="@+id/txt5Buscarpornombre"
+            android:layout_width="297dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
+            android:ems="10"
+            android:hint="Producto que desea buscar"
+            android:inputType="text" />
 
         <Button
-            android:id="@+id/btnRefresh"
+            android:id="@+id/btnBuscarProducto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Refrescar" />
+            android:text="Buscar" />
 
 
     </LinearLayout>
@@ -62,8 +63,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="16dp"
         android:text="Carrito"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />

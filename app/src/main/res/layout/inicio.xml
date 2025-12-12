@@ -72,8 +72,7 @@
                             android:layout_height="60dp"
                             android:contentDescription="Logo D1"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_launcher_foreground"
-                            tools:srcCompat="@drawable/descarga" />
+                            android:src="@drawable/descarga" />
 
                         <Space
                             android:layout_width="0dp"

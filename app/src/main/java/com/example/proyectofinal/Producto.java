@@ -1,25 +1,19 @@
 package com.example.proyectofinal;
 
 public class Producto {
-    private String id;
-    private String title;
-    private String imageUrl;
-    private int price;
-    private int quantityInCart = 0; // Cantidad agregada al carrito
 
-    public Producto(String id, String title, String imageUrl, int price) {
+    public String id;
+    public String nombre;
+    public String imagen;
+    public double precio;
+    public int cantidad = 1; // Para el carrito
+
+    public Producto(String id, String nombre, String imagen, double precio) {
         this.id = id;
-        this.title = title;
-        this.imageUrl = imageUrl;
-        this.price = price;
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.precio = precio;
     }
-
-    public String getId() { return id; }
-    public String getTitle() { return title; }
-    public String getImageUrl() { return imageUrl; }
-    public int getPrice() { return price; }
-
-    public int getQuantityInCart() { return quantityInCart; }
-    public void setQuantityInCart(int quantity) { this.quantityInCart = quantity; }
 }
+
 

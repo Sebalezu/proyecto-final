@@ -1,24 +1,42 @@
 package com.example.proyectofinal;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
+import android.widget.TextView;
 
 public class activity_carrito extends AppCompatActivity {
+
+    RecyclerView rv;
+    CarritoAdapter adapter;
+    TextView tvTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_carrito);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        rv = findViewById(R.id.rv5Carrito);
+        tvTotal = findViewById(R.id.tvTotal);
+
+        rv.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new CarritoAdapter(this, GlobalVars.carrito);
+        rv.setAdapter(adapter);
+
+        calcularTotal();
+    }
+
+    private void calcularTotal() {
+
+        double total = 0;
+
+        for (Producto p : GlobalVars.carrito) {
+            total += (p.precio * p.cantidad);
+        }
+
+        tvTotal.setText("TOTAL: € " + (total / 100.0));
     }
 }

@@ -8,58 +8,53 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHolder> {
 
-    private ArrayList<Producto> listaCarrito;
-    private Context context;
+    Context ctx;
+    List<Producto> data;
 
-    public CarritoAdapter(Context context, ArrayList<Producto> listaCarrito) {
-        this.context = context;
-        this.listaCarrito = listaCarrito;
+    public CarritoAdapter(Context c, List<Producto> d) {
+        ctx = c;
+        data = d;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_carrito, parent, false);
+        View v = LayoutInflater.from(ctx).inflate(R.layout.item_carrito, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Producto p = listaCarrito.get(position);
+    public void onBindViewHolder(ViewHolder h, int pos) {
 
-        holder.txtNombre.setText(p.getTitle());
-        holder.txtPrecio.setText("€ " + (p.getPrice() / 100.0));
-        holder.txtCantidad.setText("x" + p.getQuantityInCart());
+        Producto p = data.get(pos);
 
-        Picasso.get()
-                .load(p.getImageUrl())
-                .into(holder.imgProducto);
+        h.tvNombre.setText(p.nombre);
+        h.tvPrecio.setText("€ " + (p.precio / 100.0));
+        h.tvCantidad.setText(String.valueOf(p.cantidad));
+
+        Picasso.get().load(p.imagen).into(h.img);
     }
 
     @Override
-    public int getItemCount() {
-        return listaCarrito.size();
-    }
+    public int getItemCount() { return data.size(); }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtNombre, txtPrecio, txtCantidad;
-        ImageView imgProducto;
+        ImageView img;
+        TextView tvNombre, tvPrecio, tvCantidad;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            txtNombre = itemView.findViewById(R.id.tv6CarNombre);
-            txtPrecio = itemView.findViewById(R.id.tv6CarPrecio);
-            txtCantidad = itemView.findViewById(R.id.tv6Cantidad);
-            imgProducto = itemView.findViewById(R.id.img6CarItem);
+        public ViewHolder(View v) {
+            super(v);
+            img = v.findViewById(R.id.img6CarItem);
+            tvNombre = v.findViewById(R.id.tv6CarNombre);
+            tvPrecio = v.findViewById(R.id.tv6CarPrecio);
+            tvCantidad = v.findViewById(R.id.tv6Cantidad);
         }
     }
 }
+

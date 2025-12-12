@@ -102,12 +102,9 @@ public class Inicio extends AppCompatActivity {
      * @param nombreTienda Nombre de la tienda seleccionada
      */
     private void abrirCatalogo(String nombreTienda) {
-        // Por ahora mostramos un Toast (mensaje temporal)
-        // Cuando crees la Activity del catálogo, descomenta el Intent
-
-        Toast.makeText(this, "Abriendo catálogo de " + nombreTienda, Toast.LENGTH_SHORT).show();
-
-
-
+        Intent intent = new Intent(this, activity_producto.class);
+        intent.putExtra("tienda", nombreTienda);
+        startActivity(intent);
     }
+
 }

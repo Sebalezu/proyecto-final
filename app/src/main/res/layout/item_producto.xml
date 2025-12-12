@@ -17,7 +17,7 @@
 
 
         <ImageView
-            android:id="@+id/imgProducto"
+            android:id="@+id/img5Producto"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop" />
@@ -32,7 +32,7 @@
 
 
         <TextView
-            android:id="@+id/tvNombre"
+            android:id="@+id/tv5Nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -40,14 +40,14 @@
 
 
         <TextView
-            android:id="@+id/tvPrecio"
+            android:id="@+id/tv5Precio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp" />
 
 
         <TextView
-            android:id="@+id/tvTipo"
+            android:id="@+id/tv5Tipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -57,7 +57,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnAgregar"
+        android:id="@+id/btn5Agregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agregar"

@@ -66,10 +66,10 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txtNombre = itemView.findViewById(R.id.txtNombreProducto);
-            txtPrecio = itemView.findViewById(R.id.txtPrecioProducto);
-            imgProducto = itemView.findViewById(R.id.imgProducto);
-            btnAgregar = itemView.findViewById(R.id.btnAgregarCarrito);
+            txtNombre = itemView.findViewById(R.id.tv5Nombre);
+            txtPrecio = itemView.findViewById(R.id.tv5Precio);
+            imgProducto = itemView.findViewById(R.id.img5Producto);
+            btnAgregar = itemView.findViewById(R.id.btn5Agregar);
         }
     }
 }

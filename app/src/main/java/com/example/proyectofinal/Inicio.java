@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -44,7 +45,8 @@ public class Inicio extends AppCompatActivity {
         btnUbicacionJusto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirMapa("Justo & Bueno");
+                // Justo & Bueno cerró
+                Toast.makeText(Inicio.this, "Esta tienda cerró hace años. Ubicación no disponible.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -101,15 +103,11 @@ public class Inicio extends AppCompatActivity {
      */
     private void abrirCatalogo(String nombreTienda) {
         // Por ahora mostramos un Toast (mensaje temporal)
-        // Cuando tu compañero cree la Activity del catálogo, actualiza esto
+        // Cuando crees la Activity del catálogo, descomenta el Intent
 
         Toast.makeText(this, "Abriendo catálogo de " + nombreTienda, Toast.LENGTH_SHORT).show();
 
-        // TODO: Cuando tu compañero tenga su Activity lista, descomentar esto:
-        /*
-        Intent intent = new Intent(this, CatalogoActivity.class);
-        intent.putExtra("tienda", nombreTienda);
-        startActivity(intent);
-        */
+
+
     }
 }

@@ -17,7 +17,7 @@
             android:name=".activity_carrito"
             android:exported="false" />
         <activity
-            android:name=".activity_producto"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".Inicio"
@@ -26,7 +26,7 @@
             android:name=".RegisterActivity"
             android:exported="false" /> <!-- 🔥 ESTA ES AHORA LA PANTALLA INICIAL -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity_producto"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -30,7 +30,7 @@ public class activity_producto extends AppCompatActivity {
     private RequestQueue queue;
 
     private static final String URL_API =
-            "https://api.apify.com/v2/datasets/y4wGLhpyhg3UCHN6Q/items?token=apify_api_AOu38iajyUbMHSuyBIQRu6fiywHY042pb8wG";
+            "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

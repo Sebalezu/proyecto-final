@@ -15,7 +15,7 @@
 
 
         <ImageView
-            android:id="@+id/imgCarItem"
+            android:id="@+id/img6CarItem"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:scaleType="centerCrop" />
@@ -30,14 +30,14 @@
 
 
             <TextView
-                android:id="@+id/tvCarNombre"
+                android:id="@+id/tv6CarNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold" />
 
 
             <TextView
-                android:id="@+id/tvCarPrecio"
+                android:id="@+id/tv6CarPrecio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -46,7 +46,7 @@
 
 
         <TextView
-            android:id="@+id/tvCantidad"
+            android:id="@+id/tv6Cantidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
